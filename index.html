@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ro'yxatdan o'tish tizimi</title>
+    <style>
+        .katta {
+            font-family: calc(23px);
+            display: flex;
+            justify-content: center; 
+            padding-top: 70px; 
+            padding-left: 400px;
+        }
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px; 
+            border-radius: 8px; 
+            width: 300px; 
+        }
+        .form-group {
+             margin-bottom: 15px; 
+            }
+        label {
+             display: block;
+             margin-bottom: 5px; 
+            }
+        input {
+             width: 100%; 
+             padding: 8px; 
+             box-sizing: border-box; 
+            }
+        button {
+            width: 100%; 
+            padding: 10px; 
+            background: #8c2fde;
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        #welcomeSection {
+            display: none; 
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <div class="katta"></div>
+    <div id="regSection" class="form-container">
+        <h2>Ro'yxatdan o'tish</h2>
+        <form id="signUpForm">
+            <div class="form-group">
+                <label for="signUpUsername">Foydalanuvchi nomi:</label>
+                <input type="text" id="signUpUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="signUpPassword">Parol:</label>
+                <input type="password" id="signUpPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Parolni tasdiqlash:</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit">Ro'yxatdan o'tish</button>
+        </form>
+        <p id="signUpError" style="color: rgb(226, 102, 102); display: none;">Parollar mos kelmaydi!</p>
+    </div>
+    <div id="welcomeSection" class="form-container">
+        <h1>Xush kelibsiz!</h1>
+        <p id="userData"></p>
+        <button onclick="location.reload()">Orqaga qaytish</button>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let uName = document.getElementById('signUpUsername').value;
+            let pass = document.getElementById('signUpPassword').value;
+            let confirmPass = document.getElementById('confirmPassword').value;
+            if (pass !== confirmPass) {
+                document.getElementById('signUpError').style.display = 'block';
+                return;
+            }
+            localStorage.setItem('username', uName);
+            localStorage.setItem('password', pass);
+            document.getElementById('regSection').style.display = 'none';
+            document.getElementById('welcomeSection').style.display = 'block';
+            let savedUser = localStorage.getItem("username");
+            let savedPass = localStorage.getItem("password");
+            document.getElementById('userData').innerHTML = 
+                "<b>Username:</b> " + savedUser + "<br><b>Parol:</b> " + savedPass;
+        });
+    </script>
+
+</body>
+</html>
